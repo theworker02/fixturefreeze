@@ -1,7 +1,7 @@
 {
   "name": "fixturefreeze",
   "version": "1.0.0",
-  "description": "Copy files into fixtures/ and later check they still match.",
+  "description": "Copy a path into fixtures/ with freeze, then check that the live file still matches byte-for-byte.",
   "bin": {
     "fixturefreeze": "./src/cli.js"
   },
@@ -12,5 +12,25 @@
   "license": "MIT",
   "engines": {
     "node": ">=18"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theworker02/fixturefreeze.git"
+  },
+  "homepage": "https://theworker02.github.io/fixturefreeze/",
+  "bugs": {
+    "url": "https://github.com/theworker02/fixturefreeze/issues"
+  },
+  "files": [
+    "src",
+    "docs",
+    "LICENSE",
+    "README.md"
+  ],
+  "keywords": [
+    "fixtures",
+    "snapshot",
+    "golden-file",
+    "cli"
+  ]
 }

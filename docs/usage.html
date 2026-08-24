@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>fixturefreeze usage · 1.00</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="nav sans">
+    <a class="brand-lockup" href="index.html"><img src="logo.svg" alt=""> fixturefreeze</a>
+    <div class="links">
+      <a href="index.html#overview">Overview</a>
+      <a href="index.html#install">Install</a>
+      <a href="usage.html">Usage</a>
+      <a href="index.html#examples">Examples</a>
+    </div>
+  </nav>
+  
+  <header class="hero">
+    <img src="logo.svg" alt="fixturefreeze mark">
+    <div>
+      <p class="kicker sans">CLI reference · 1.00</p>
+      <h1>fixturefreeze</h1>
+      <p class="lede">Every flag, subcommand, and exit code. Same examples as the README.</p>
+    </div>
+  </header>
+  <div class="wrap">
+    <section>
+      <h2>Synopsis</h2>
+      <pre><code>fixturefreeze &lt;freeze|check&gt; &lt;path&gt;</code></pre>
+      <div class="callout sans"><strong>Tip:</strong> <code>fixturefreeze --help</code> prints this text in the terminal. <code>fixturefreeze --version</code> prints <code>1.0.0</code>.</div>
+    </section>
+    <section>
+      <h2>Flags and arguments</h2>
+      <table class="sans"><thead><tr><th>Flag / argument</th><th>Meaning</th></tr></thead><tbody><tr><td><code>-h, --help</code></td><td>Print detailed usage and exit 0.</td></tr><tr><td><code>-v, --version</code></td><td>Print 1.0.0 and exit 0.</td></tr><tr><td><code>freeze &lt;path&gt;</code></td><td>Copy basename(path) into ./fixtures/.</td></tr><tr><td><code>check &lt;path&gt;</code></td><td>Compare path to fixtures/&lt;basename&gt;. Exit 1 on missing fixture or drift.</td></tr></tbody></table>
+    </section>
+    <section>
+      <h2>Exit codes</h2>
+      <table class="sans"><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody><tr><td><code>0</code></td><td>freeze succeeded, or check matched.</td></tr><tr><td><code>1</code></td><td>Bad usage, missing fixture, or bytes differ.</td></tr></tbody></table>
+    </section>
+    <section>
+      <h2>Configuration</h2>
+      <p>Fixtures live in ./fixtures relative to the current working directory. The frozen name is the basename of the source path. Copies overwrite.</p>
+    </section>
+    <section id="examples">
+      <h2>Worked examples</h2>
+      <h3 class="ok">Success path</h3>
+      <pre><code>fixturefreeze freeze sample.txt
+fixturefreeze check sample.txt</code></pre><p>check prints `"reason":"match"` and exits 0.</p>
+      <h3 class="fail">Failure path</h3>
+      <p>After freeze, edit the live file.</p><pre><code>echo changed &gt;&gt; sample.txt
+fixturefreeze check sample.txt</code></pre><pre><code>{"ok":false,"reason":"drift"}</code></pre><p>Exit code is 1.</p>
+    </section>
+  </div>
+  <footer class="sans">
+    MIT © 2026 theworker02 · version <strong>1.00</strong> (<code>1.0.0</code>) ·
+    navy <code>#0B1F33</code> · gold <code>#C9A227</code> ·
+    <a href="https://github.com/theworker02/fixturefreeze">GitHub</a> ·
+    <a href="https://thanks.dev/u/gh/theworker02">thanks.dev</a>
+  </footer>
+</body>
+</html>
