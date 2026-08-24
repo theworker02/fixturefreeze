@@ -1,6 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Tool mark">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="fixturefreeze mark">
   <rect width="128" height="128" rx="18" fill="#0B1F33"/>
-  <polygon points="64,20 108,98 20,98" fill="none" stroke="#C9A227" stroke-width="6" stroke-linejoin="round"/>
-  <circle cx="64" cy="68" r="16" fill="#C9A227"/>
-  <rect x="58" y="36" width="12" height="22" rx="2" fill="#0B1F33"/>
+  <rect x="30" y="46" width="44" height="56" rx="4" fill="none" stroke="#C9A227" stroke-width="5"/>
+  <path d="M30 62h44M42 74h20M42 86h14" stroke="#C9A227" stroke-width="4"/>
+  <path d="M88 28v44M66 50h44M73 36l30 28M73 64l30-28" stroke="#C9A227" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="88" cy="50" r="6" fill="#C9A227"/>
 </svg>
