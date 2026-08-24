@@ -14,6 +14,8 @@
       <a href="index.html#install">Install</a>
       <a href="usage.html">Usage</a>
       <a href="index.html#examples">Examples</a>
+      <a href="https://github.com/theworker02/fixturefreeze">GitHub</a>
+      <a href="https://github.com/theworker02/fixturefreeze/releases/tag/v1.0.0">1.00</a>
     </div>
   </nav>
   
@@ -47,7 +49,7 @@
       <h2>Worked examples</h2>
       <h3 class="ok">Success path</h3>
       <pre><code>fixturefreeze freeze sample.txt
-fixturefreeze check sample.txt</code></pre><p>check prints `"reason":"match"` and exits 0.</p>
+fixturefreeze check sample.txt</code></pre><p>check prints <code>"reason":"match"</code> and exits 0.</p>
       <h3 class="fail">Failure path</h3>
       <p>After freeze, edit the live file.</p><pre><code>echo changed &gt;&gt; sample.txt
 fixturefreeze check sample.txt</code></pre><pre><code>{"ok":false,"reason":"drift"}</code></pre><p>Exit code is 1.</p>
