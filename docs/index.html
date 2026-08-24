@@ -42,9 +42,36 @@
     <section id="install">
       <h2>Install</h2>
       <p>Install globally from Git, or run with Node from a clone. There are no extra dependencies.</p>
-      <pre><code>npm install -g git+https://github.com/theworker02/fixturefreeze.git
-fixturefreeze --help
-node src/cli.js --help</code></pre>
+      <pre><code>fixturefreeze 1.00 (1.0.0)
+
+Usage:
+  fixturefreeze freeze &lt;path&gt; [options]
+  fixturefreeze check &lt;path&gt; [options]
+  fixturefreeze list [options]
+  fixturefreeze update &lt;path&gt; [options]
+
+freeze   copy a file or directory into ./fixtures/ (nested layout preserved)
+check    compare the live path to the frozen copy, byte-for-byte
+list     print relative paths stored under ./fixtures
+update   same as freeze; intended for refreshing a drifted snapshot
+
+Options:
+  -h, --help         Show this help and exit 0
+  -V, -v, --version  Print 1.0.0 and exit 0
+  --json             JSON result
+  --update           With check: rewrite the fixture when it drifted
+                     (also accepted as a top-level alias for update)
+
+Exit codes:
+  0  freeze/list succeeded, or check matched
+  1  missing path, drift, or unknown option
+
+Examples:
+  fixturefreeze freeze ./docs/index.html
+  fixturefreeze freeze ./samples
+  fixturefreeze check ./docs/index.html
+  fixturefreeze check ./docs/index.html --update
+  fixturefreeze list --json</code></pre>
     </section>
     <section id="usage">
       <h2>Usage</h2>
@@ -74,13 +101,13 @@ Examples:
       <div class="grid-2">
         <div>
           <h3 class="ok">Success</h3>
-          <pre><code>fixturefreeze freeze sample.txt
-fixturefreeze check sample.txt</code></pre><p>check prints <code>"reason":"match"</code> and exits 0.</p>
+          <p>Freeze a file and confirm it still matches.</p><pre><code>fixturefreeze freeze ./docs/index.html
+fixturefreeze check ./docs/index.html</code></pre><pre><code>freeze file -&gt; /abs/fixtures/docs/index.html
+match  /abs/docs/index.html</code></pre>
         </div>
         <div>
           <h3 class="fail">Failure</h3>
-          <p>After freeze, edit the live file.</p><pre><code>echo changed &gt;&gt; sample.txt
-fixturefreeze check sample.txt</code></pre><pre><code>{"ok":false,"reason":"drift"}</code></pre><p>Exit code is 1.</p>
+          <p>Drift fails check unless --update is passed.</p><pre><code>fixturefreeze check ./docs/index.html</code></pre><pre><code>FAIL  drift  /abs/docs/index.html</code></pre><p>Exit code is 1.</p>
         </div>
       </div>
     </section>

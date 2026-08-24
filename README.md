@@ -57,24 +57,46 @@ fixturefreeze check ./out.txt
 
 ## CLI reference
 
-Synopsis:
-
 ```text
-fixturefreeze <freeze|check> <path>
-```
+fixturefreeze 1.00 (1.0.0)
 
-| Flag / argument | Meaning |
-| --- | --- |
-| `-h, --help` | Print detailed usage and exit 0. |
-| `-v, --version` | Print 1.0.0 and exit 0. |
-| `freeze <path>` | Copy basename(path) into ./fixtures/. |
-| `check <path>` | Compare path to fixtures/<basename>. Exit 1 on missing fixture or drift. |
+Usage:
+  fixturefreeze freeze <path> [options]
+  fixturefreeze check <path> [options]
+  fixturefreeze list [options]
+  fixturefreeze update <path> [options]
+
+freeze   copy a file or directory into ./fixtures/ (nested layout preserved)
+check    compare the live path to the frozen copy, byte-for-byte
+list     print relative paths stored under ./fixtures
+update   same as freeze; intended for refreshing a drifted snapshot
+
+Options:
+  -h, --help         Show this help and exit 0
+  -V, -v, --version  Print 1.0.0 and exit 0
+  --json             JSON result
+  --update           With check: rewrite the fixture when it drifted
+                     (also accepted as a top-level alias for update)
+
+Exit codes:
+  0  freeze/list succeeded, or check matched
+  1  missing path, drift, or unknown option
+
+Examples:
+  fixturefreeze freeze ./docs/index.html
+  fixturefreeze freeze ./samples
+  fixturefreeze check ./docs/index.html
+  fixturefreeze check ./docs/index.html --update
+  fixturefreeze list --json
+```
 
 Print the same text locally:
 
 ```bash
 fixturefreeze --help
+fixturefreeze -h
 fixturefreeze --version
+fixturefreeze -V
 ```
 
 Expected version output:
@@ -85,37 +107,41 @@ Expected version output:
 
 ## Configuration
 
-Fixtures live in ./fixtures relative to the current working directory. The frozen name is the basename of the source path. Copies overwrite.
+Copies live paths into `./fixtures/`, preserving nested layout for directories.
 
 ## Exit codes
 
 | Code | Meaning |
 | --- | --- |
-| `0` | freeze succeeded, or check matched. |
-| `1` | Bad usage, missing fixture, or bytes differ. |
+| `0` | freeze/list succeeded, or check matched (or --update rewrote). |
+| `1` | Missing path, drift, or unknown option. |
 
 ## Examples
 
 ### Success path
 
+Freeze a file and confirm it still matches.
+
 ```bash
-fixturefreeze freeze sample.txt
-fixturefreeze check sample.txt
+fixturefreeze freeze ./docs/index.html
+fixturefreeze check ./docs/index.html
 ```
 
-check prints `"reason":"match"` and exits 0.
+```text
+freeze file -> /abs/fixtures/docs/index.html
+match  /abs/docs/index.html
+```
 
 ### Failure path
 
-After freeze, edit the live file.
+Drift fails check unless --update is passed.
 
 ```bash
-echo changed >> sample.txt
-fixturefreeze check sample.txt
+fixturefreeze check ./docs/index.html
 ```
 
-```json
-{"ok":false,"reason":"drift"}
+```text
+FAIL  drift  /abs/docs/index.html
 ```
 
 Exit code is 1.

@@ -30,29 +30,58 @@
   <div class="wrap">
     <section>
       <h2>Synopsis</h2>
-      <pre><code>fixturefreeze &lt;freeze|check&gt; &lt;path&gt;</code></pre>
-      <div class="callout sans"><strong>Tip:</strong> <code>fixturefreeze --help</code> prints this text in the terminal. <code>fixturefreeze --version</code> prints <code>1.0.0</code>.</div>
+      <pre><code>fixturefreeze 1.00 (1.0.0)
+
+Usage:
+  fixturefreeze freeze &lt;path&gt; [options]
+  fixturefreeze check &lt;path&gt; [options]
+  fixturefreeze list [options]
+  fixturefreeze update &lt;path&gt; [options]
+
+freeze   copy a file or directory into ./fixtures/ (nested layout preserved)
+check    compare the live path to the frozen copy, byte-for-byte
+list     print relative paths stored under ./fixtures
+update   same as freeze; intended for refreshing a drifted snapshot
+
+Options:
+  -h, --help         Show this help and exit 0
+  -V, -v, --version  Print 1.0.0 and exit 0
+  --json             JSON result
+  --update           With check: rewrite the fixture when it drifted
+                     (also accepted as a top-level alias for update)
+
+Exit codes:
+  0  freeze/list succeeded, or check matched
+  1  missing path, drift, or unknown option
+
+Examples:
+  fixturefreeze freeze ./docs/index.html
+  fixturefreeze freeze ./samples
+  fixturefreeze check ./docs/index.html
+  fixturefreeze check ./docs/index.html --update
+  fixturefreeze list --json</code></pre>
+      <div class="callout sans"><strong>Tip:</strong> <code>fixturefreeze --help</code> and <code>-h</code> print this text. <code>fixturefreeze --version</code> and <code>-V</code> print <code>1.0.0</code>.</div>
     </section>
     <section>
       <h2>Flags and arguments</h2>
-      <table class="sans"><thead><tr><th>Flag / argument</th><th>Meaning</th></tr></thead><tbody><tr><td><code>-h, --help</code></td><td>Print detailed usage and exit 0.</td></tr><tr><td><code>-v, --version</code></td><td>Print 1.0.0 and exit 0.</td></tr><tr><td><code>freeze &lt;path&gt;</code></td><td>Copy basename(path) into ./fixtures/.</td></tr><tr><td><code>check &lt;path&gt;</code></td><td>Compare path to fixtures/&lt;basename&gt;. Exit 1 on missing fixture or drift.</td></tr></tbody></table>
+      <p>The complete flag list is in <code>fixturefreeze --help</code> (shown above). Human output is the default; pass <code>--json</code> where supported.</p>
     </section>
     <section>
       <h2>Exit codes</h2>
-      <table class="sans"><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody><tr><td><code>0</code></td><td>freeze succeeded, or check matched.</td></tr><tr><td><code>1</code></td><td>Bad usage, missing fixture, or bytes differ.</td></tr></tbody></table>
+      <table class="sans"><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody><tr><td><code>0</code></td><td>freeze/list succeeded, or check matched (or --update rewrote).</td></tr><tr><td><code>1</code></td><td>Missing path, drift, or unknown option.</td></tr></tbody></table>
     </section>
     <section>
       <h2>Configuration</h2>
-      <p>Fixtures live in ./fixtures relative to the current working directory. The frozen name is the basename of the source path. Copies overwrite.</p>
+      <p>Copies live paths into `./fixtures/`, preserving nested layout for directories.</p>
     </section>
     <section id="examples">
       <h2>Worked examples</h2>
       <h3 class="ok">Success path</h3>
-      <pre><code>fixturefreeze freeze sample.txt
-fixturefreeze check sample.txt</code></pre><p>check prints <code>"reason":"match"</code> and exits 0.</p>
+      <p>Freeze a file and confirm it still matches.</p><pre><code>fixturefreeze freeze ./docs/index.html
+fixturefreeze check ./docs/index.html</code></pre><pre><code>freeze file -&gt; /abs/fixtures/docs/index.html
+match  /abs/docs/index.html</code></pre>
       <h3 class="fail">Failure path</h3>
-      <p>After freeze, edit the live file.</p><pre><code>echo changed &gt;&gt; sample.txt
-fixturefreeze check sample.txt</code></pre><pre><code>{"ok":false,"reason":"drift"}</code></pre><p>Exit code is 1.</p>
+      <p>Drift fails check unless --update is passed.</p><pre><code>fixturefreeze check ./docs/index.html</code></pre><pre><code>FAIL  drift  /abs/docs/index.html</code></pre><p>Exit code is 1.</p>
     </section>
   </div>
   <footer class="sans">
