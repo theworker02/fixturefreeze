@@ -3,17 +3,22 @@
 import fs from "node:fs";
 import path from "node:path";
 
+const PACKAGE = Object.freeze({ name: "@theworker02/fixturefreeze", version: "1.2.0", runtime: "node", registry: "jsr" });
+const FIXTURE_DIRNAME = "fixtures";
+
 function fixturesDir(cwd = process.cwd()) {
-  return path.resolve(cwd, "fixtures");
+  return path.resolve(cwd, FIXTURE_DIRNAME);
 }
 
 function frozenPath(filePath, cwd = process.cwd()) {
   const src = path.resolve(filePath);
   const rel = path.relative(path.resolve(cwd), src);
-  if (rel.startsWith("..") || path.isAbsolute(rel)) {
-    return path.join(fixturesDir(cwd), path.basename(src));
-  }
+  if (rel.startsWith("..") || path.isAbsolute(rel)) return path.join(fixturesDir(cwd), path.basename(src));
   return path.join(fixturesDir(cwd), rel);
+}
+
+function fixtureExists(filePath, cwd = process.cwd()) {
+  return fs.existsSync(frozenPath(filePath, cwd));
 }
 
 function copyRecursive(src, dest) {
@@ -38,10 +43,7 @@ function freeze(filePath, cwd = process.cwd()) {
 
 function listFiles(root, acc = []) {
   const stat = fs.statSync(root);
-  if (stat.isFile()) {
-    acc.push(root);
-    return acc;
-  }
+  if (stat.isFile()) { acc.push(root); return acc; }
   for (const name of fs.readdirSync(root)) listFiles(path.join(root, name), acc);
   return acc;
 }
@@ -60,9 +62,7 @@ function check(filePath, cwd = process.cwd()) {
   }
   const live = listFiles(src).map((f) => path.relative(src, f).replaceAll("\\", "/")).sort();
   const frozen = listFiles(dest).map((f) => path.relative(dest, f).replaceAll("\\", "/")).sort();
-  if (live.join("\0") !== frozen.join("\0")) {
-    return { ok: false, reason: "file list drift", src, dest, live, frozen };
-  }
+  if (live.join("\0") !== frozen.join("\0")) return { ok: false, reason: "file list drift", src, dest, live, frozen };
   for (const rel of live) {
     const a = fs.readFileSync(path.join(src, rel));
     const b = fs.readFileSync(path.join(dest, rel));
@@ -77,8 +77,6 @@ function list(cwd = process.cwd()) {
   return listFiles(dir).map((file) => path.relative(dir, file).replaceAll("\\", "/"));
 }
 
-function update(filePath, cwd = process.cwd()) {
-  return freeze(filePath, cwd);
-}
+function update(filePath, cwd = process.cwd()) { return freeze(filePath, cwd); }
 
-export { fixturesDir, frozenPath, freeze, check, list, update };
+export { PACKAGE, FIXTURE_DIRNAME, fixturesDir, frozenPath, fixtureExists, freeze, check, list, update };
