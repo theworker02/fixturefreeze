@@ -3,125 +3,30 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>fixturefreeze  · 1.00</title>
+  <title>fixturefreeze · 1.2.0</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <nav class="nav sans">
     <a class="brand-lockup" href="index.html"><img src="logo.svg" alt=""> fixturefreeze</a>
-    <div class="links">
-      <a href="index.html#overview">Overview</a>
-      <a href="index.html#install">Install</a>
-      <a href="usage.html">Usage</a>
-      <a href="index.html#examples">Examples</a>
-      <a href="https://github.com/theworker02/fixturefreeze">GitHub</a>
-      <a href="https://www.npmjs.com/package/%40magnexis/fixturefreeze">npm</a>
-      <a href="https://github.com/theworker02/fixturefreeze/releases/tag/v1.0.0">1.00</a>
-    </div>
+    <div class="links"><a href="#overview">Overview</a><a href="#api">API</a><a href="#examples">Examples</a><a href="https://jsr.io/@theworker02/fixturefreeze">JSR</a><a href="https://github.com/theworker02/fixturefreeze">GitHub</a></div>
   </nav>
-  
   <header class="hero">
     <img src="logo.svg" alt="fixturefreeze mark">
-    <div>
-      <p class="kicker sans">theworker02 · version 1.00</p>
-      <h1>fixturefreeze</h1>
-      <p class="lede">Copy a path into fixtures/ with freeze, then check that the live file still matches byte-for-byte.</p>
-      <div class="badges sans">
-        <span class="badge">1.00 / 1.0.0</span>
-        <span class="badge">branch main</span>
-        <span class="badge">MIT</span>
-        <span class="badge">Node.js >= 18</span>
-      </div>
-    </div>
+    <div><p class="kicker sans">@theworker02/fixturefreeze · JSR · 1.2.0</p><h1>fixturefreeze</h1><p class="lede">Deterministic fixture snapshots and byte-for-byte drift checks for files and directories.</p><div class="badges sans"><span class="badge">1.2.0</span><span class="badge">JSR</span><span class="badge">MIT</span><span class="badge">Node.js ≥ 18</span></div></div>
   </header>
   <div class="wrap">
-    <section id="overview">
-      <h2>Overview</h2>
-      <p>Golden files rot when nobody notices. fixturefreeze is a tiny freeze/check pair for generated samples, CLI output, or static HTML.</p>
-      <p>Authors of tools that emit files and want a no-framework snapshot check.</p>
-    </section>
-    <section id="install">
-      <h2>Install</h2>
-      <p>Install globally from npm, or run with Node from a clone. There are no extra dependencies.</p>
-      <p>Package: <a href="https://www.npmjs.com/package/%40magnexis/fixturefreeze"><code>@magnexis/fixturefreeze</code></a></p>
-      <pre><code>npm i -g @magnexis/fixturefreeze
-fixturefreeze --help</code></pre>
-      <pre><code>fixturefreeze 1.00 (1.0.0)
+    <section id="overview"><h2>Overview</h2><p>FixtureFreeze copies live content into a predictable fixtures tree and verifies it later. Version 1.2.0 adds package metadata, fixture existence checks, stronger TypeScript declarations, and richer generated symbol documentation.</p></section>
+    <section id="api"><h2>Structured API</h2><p>Canonical package: <a href="https://jsr.io/@theworker02/fixturefreeze"><code>@theworker02/fixturefreeze</code></a></p><pre><code>import { freeze, check, fixtureExists, PACKAGE } from "@theworker02/fixturefreeze";
 
-Usage:
-  fixturefreeze freeze &lt;path&gt; [options]
-  fixturefreeze check &lt;path&gt; [options]
-  fixturefreeze list [options]
-  fixturefreeze update &lt;path&gt; [options]
-
-freeze   copy a file or directory into ./fixtures/ (nested layout preserved)
-check    compare the live path to the frozen copy, byte-for-byte
-list     print relative paths stored under ./fixtures
-update   same as freeze; intended for refreshing a drifted snapshot
-
-Options:
-  -h, --help         Show this help and exit 0
-  -V, -v, --version  Print 1.0.0 and exit 0
-  --json             JSON result
-  --update           With check: rewrite the fixture when it drifted
-                     (also accepted as a top-level alias for update)
-
-Exit codes:
-  0  freeze/list succeeded, or check matched
-  1  missing path, drift, or unknown option
-
-Examples:
-  fixturefreeze freeze ./docs/index.html
-  fixturefreeze freeze ./samples
-  fixturefreeze check ./docs/index.html
-  fixturefreeze check ./docs/index.html --update
-  fixturefreeze list --json</code></pre>
-    </section>
-    <section id="usage">
-      <h2>Usage</h2>
-      <p>Synopsis: <code>fixturefreeze &lt;freeze|check&gt; &lt;path&gt;</code></p>
-      <p>See the <a href="usage.html">full CLI reference</a> for every flag, exit code, and example.</p>
-      <pre><code>fixturefreeze 1.00 (1.0.0)
-
-Usage:
-  fixturefreeze freeze &lt;path&gt;
-  fixturefreeze check &lt;path&gt;
-  fixturefreeze --help
-  fixturefreeze --version
-
-freeze  copies &lt;path&gt; to ./fixtures/&lt;basename&gt;
-check   compares &lt;path&gt; to that frozen copy (byte-for-byte)
-
-Options:
-  -h, --help       Show this help
-  -v, --version    Print 1.0.0
-
-Examples:
-  fixturefreeze freeze ./docs/index.html
-  fixturefreeze check ./docs/index.html</code></pre>
-    </section>
-    <section id="examples">
-      <h2>Examples</h2>
-      <div class="grid-2">
-        <div>
-          <h3 class="ok">Success</h3>
-          <p>Freeze a file and confirm it still matches.</p><pre><code>fixturefreeze freeze ./docs/index.html
-fixturefreeze check ./docs/index.html</code></pre><pre><code>freeze file -&gt; /abs/fixtures/docs/index.html
-match  /abs/docs/index.html</code></pre>
-        </div>
-        <div>
-          <h3 class="fail">Failure</h3>
-          <p>Drift fails check unless --update is passed.</p><pre><code>fixturefreeze check ./docs/index.html</code></pre><pre><code>FAIL  drift  /abs/docs/index.html</code></pre><p>Exit code is 1.</p>
-        </div>
-      </div>
-    </section>
+freeze("./docs/index.html");
+console.log(fixtureExists("./docs/index.html"));
+console.log(check("./docs/index.html"), PACKAGE.version);</code></pre></section>
+    <section id="examples"><h2>CLI from source</h2><pre><code>git clone https://github.com/theworker02/fixturefreeze.git
+cd fixturefreeze
+node src/cli.js freeze ./docs/index.html
+node src/cli.js check ./docs/index.html</code></pre></section>
   </div>
-  <footer class="sans">
-    MIT © 2026 theworker02 · version <strong>1.00</strong> (<code>1.0.0</code>) ·
-    navy <code>#0B1F33</code> · gold <code>#C9A227</code> ·
-    <a href="https://www.npmjs.com/package/%40magnexis/fixturefreeze">npm</a> ·
-    <a href="https://github.com/theworker02/fixturefreeze">GitHub</a> ·
-    <a href="https://thanks.dev/u/gh/theworker02">thanks.dev</a>
-  </footer>
+  <footer class="sans">MIT © 2026 theworker02 · <strong>1.2.0</strong> · <a href="https://jsr.io/@theworker02/fixturefreeze">JSR</a> · <a href="https://github.com/theworker02/fixturefreeze">GitHub</a></footer>
 </body>
 </html>
