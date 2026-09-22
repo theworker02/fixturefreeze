@@ -1,5 +1,13 @@
 # fixturefreeze
 
+
+---
+
+## License & acquisition
+
+This project is **proprietary**. Production use, redistribution, and commercial deployment require a written commercial license or completed acquisition. See [LICENSE](./LICENSE) and [ACQUISITION.md](./ACQUISITION.md). Contact [@theworker02](https://github.com/theworker02).
+
+
 <img src="docs/logo.svg" alt="fixturefreeze mark" width="96" height="96">
 
 **Freeze files or directories into deterministic fixtures and verify them byte-for-byte later.**
@@ -9,7 +17,7 @@
 ![license MIT](https://img.shields.io/badge/license-MIT-0B1F33)
 ![node >=18](https://img.shields.io/badge/node-%3E%3D18-C9A227?labelColor=0B1F33)
 
-**Package:** [`@theworker02/fixturefreeze`](https://jsr.io/@theworker02/fixturefreeze) · **Docs:** [GitHub Pages](https://theworker02.github.io/fixturefreeze/) · **Source:** [`theworker02/fixturefreeze`](https://github.com/theworker02/fixturefreeze)
+**Package:** [`@theworker02/fixturefreeze`](https://jsr.io/@theworker02/fixturefreeze) Â· **Docs:** [GitHub Pages](https://theworker02.github.io/fixturefreeze/) Â· **Source:** [`theworker02/fixturefreeze`](https://github.com/theworker02/fixturefreeze)
 
 ## Highlights
 
@@ -48,18 +56,18 @@ console.log(PACKAGE.version);
 
 ### Fixture operations
 
-- `freeze(path, cwd)` — freeze a live file or directory.
-- `check(path, cwd)` — compare live content against its fixture.
-- `update(path, cwd)` — refresh a fixture.
-- `list(cwd)` — list frozen fixture files.
+- `freeze(path, cwd)` â€” freeze a live file or directory.
+- `check(path, cwd)` â€” compare live content against its fixture.
+- `update(path, cwd)` â€” refresh a fixture.
+- `list(cwd)` â€” list frozen fixture files.
 
 ### Paths and metadata
 
-- `fixturesDir(cwd)` — resolve the fixture root.
-- `frozenPath(path, cwd)` — resolve a live path's fixture location.
-- `fixtureExists(path, cwd)` — test whether a fixture exists.
-- `FIXTURE_DIRNAME` — canonical fixture directory name.
-- `PACKAGE` — package identity and release metadata.
+- `fixturesDir(cwd)` â€” resolve the fixture root.
+- `frozenPath(path, cwd)` â€” resolve a live path's fixture location.
+- `fixtureExists(path, cwd)` â€” test whether a fixture exists.
+- `FIXTURE_DIRNAME` â€” canonical fixture directory name.
+- `PACKAGE` â€” package identity and release metadata.
 
 ### Types
 
@@ -98,4 +106,4 @@ The canonical package is published to JSR through GitHub Actions using OIDC trus
 
 ## License
 
-[MIT](LICENSE) © 2026 theworker02
+[MIT](LICENSE) Â© 2026 theworker02
