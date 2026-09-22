@@ -17,7 +17,7 @@ This project is **proprietary**. Production use, redistribution, and commercial 
 ![license MIT](https://img.shields.io/badge/license-MIT-0B1F33)
 ![node >=18](https://img.shields.io/badge/node-%3E%3D18-C9A227?labelColor=0B1F33)
 
-**Package:** [`@theworker02/fixturefreeze`](https://jsr.io/@theworker02/fixturefreeze) Â· **Docs:** [GitHub Pages](https://theworker02.github.io/fixturefreeze/) Â· **Source:** [`theworker02/fixturefreeze`](https://github.com/theworker02/fixturefreeze)
+**Package:** [`@theworker02/fixturefreeze`](https://jsr.io/@theworker02/fixturefreeze) Ã‚Â· **Docs:** [GitHub Pages](https://theworker02.github.io/fixturefreeze/) Ã‚Â· **Source:** [`theworker02/fixturefreeze`](https://github.com/theworker02/fixturefreeze)
 
 ## Highlights
 
@@ -56,18 +56,18 @@ console.log(PACKAGE.version);
 
 ### Fixture operations
 
-- `freeze(path, cwd)` â€” freeze a live file or directory.
-- `check(path, cwd)` â€” compare live content against its fixture.
-- `update(path, cwd)` â€” refresh a fixture.
-- `list(cwd)` â€” list frozen fixture files.
+- `freeze(path, cwd)` Ã¢â‚¬â€ freeze a live file or directory.
+- `check(path, cwd)` Ã¢â‚¬â€ compare live content against its fixture.
+- `update(path, cwd)` Ã¢â‚¬â€ refresh a fixture.
+- `list(cwd)` Ã¢â‚¬â€ list frozen fixture files.
 
 ### Paths and metadata
 
-- `fixturesDir(cwd)` â€” resolve the fixture root.
-- `frozenPath(path, cwd)` â€” resolve a live path's fixture location.
-- `fixtureExists(path, cwd)` â€” test whether a fixture exists.
-- `FIXTURE_DIRNAME` â€” canonical fixture directory name.
-- `PACKAGE` â€” package identity and release metadata.
+- `fixturesDir(cwd)` Ã¢â‚¬â€ resolve the fixture root.
+- `frozenPath(path, cwd)` Ã¢â‚¬â€ resolve a live path's fixture location.
+- `fixtureExists(path, cwd)` Ã¢â‚¬â€ test whether a fixture exists.
+- `FIXTURE_DIRNAME` Ã¢â‚¬â€ canonical fixture directory name.
+- `PACKAGE` Ã¢â‚¬â€ package identity and release metadata.
 
 ### Types
 
@@ -106,4 +106,8 @@ The canonical package is published to JSR through GitHub Actions using OIDC trus
 
 ## License
 
-[MIT](LICENSE) Â© 2026 theworker02
+[MIT](LICENSE) Ã‚Â© 2026 theworker02
+
+## Status
+
+fixturefreeze is actively packaged for commercial licensing and acquisition diligence. See [ACQUISITION.md](./ACQUISITION.md) and [docs/acquisition/](./docs/acquisition/).
